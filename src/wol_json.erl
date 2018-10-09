@@ -1,7 +1,7 @@
 -module(wol_json).
 
--export([to_json/1,
-	 from_json/1,
+-export([encode/1,
+	 decode/1,
 	 test/0]).
 
 -import(wol_utils, [template/2]).
@@ -10,10 +10,10 @@
 -define(DATE_PATTERN, <<"^\\d{4}\\-\\d{1,2}\\-\\d{1,2}$">>).
 -define(SCORE_PATTERN, <<"^\\d{1,2}\\-\\d{1,2}$">>).
 
-to_json(Struct) ->
+encode(Struct) ->
     jsx:encode(recurse(Struct, fun(Value) -> to_string(Value) end)).
 
-from_json(Struct) ->
+decode(Struct) ->
     recurse(jsx:decode(Struct, [return_maps]), fun(Value) -> from_string(Value) end).
 			 
 recurse(Struct, Encoder) when is_map(Struct) ->
@@ -69,17 +69,17 @@ test() ->
     DateTime=[#{<<"date">> => {{1970, 1, 1}, {1, 2, 3}}}],
     DateTimeStr= <<"[{\"date\":\"1970-01-01 01:02:03\"}]">>,
     DateTimeStr2= <<"[{\"date\":\"1970-01-01T01:02:03.000Z\"}]">>,
-    DateTime=from_json(DateTimeStr),
-    DateTime=from_json(DateTimeStr2),
-    DateTimeStr=to_json(DateTime),
+    DateTime=decode(DateTimeStr),
+    DateTime=decode(DateTimeStr2),
+    DateTimeStr=encode(DateTime),
     %% date
     Date=[#{<<"date">> => {{1970, 1, 1}, {0, 0, 0}}}],
     DateStr= <<"[{\"date\":\"1970-01-01\"}]">>,
-    Date=from_json(DateStr),
-    DateStr=to_json(Date),
+    Date=decode(DateStr),
+    DateStr=encode(Date),
     %% score
     Score=[#{<<"score">> => {2, 1}}],
     ScoreStr= <<"[{\"score\":\"2-1\"}]">>,
-    Score=from_json(ScoreStr),
-    ScoreStr=to_json(Score),
+    Score=decode(ScoreStr),
+    ScoreStr=encode(Score),
     ok.

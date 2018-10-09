@@ -1,11 +1,7 @@
--module(wol_utils).
+-module(wol_strings).
 
--export([now_utc/0,
-	 template/2,
+-export([template/2,
 	 template/3]).
-
-now_utc() ->
-    calendar:now_to_datetime(erlang:timestamp()).
 
 template(Pattern, Args) ->
     template(Pattern, Args, []).
