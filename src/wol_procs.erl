@@ -7,7 +7,8 @@
 	 init_temporary_worker/2,
 	 init_temporary_worker/3,
 	 init_permanent_sup/2,
-	 init_permanent_sup/3]).
+	 init_permanent_sup/3,
+	 random_id/1]).
 
 -define(PERMANENT, permanent).
 -define(TRANSIENT, transient).
