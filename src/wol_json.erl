@@ -4,7 +4,7 @@
 	 decode/1,
 	 test/0]).
 
--import(wol_utils, [template/2]).
+-import(wol_strings, [template/2]).
 
 -define(DATETIME_PATTERN, <<"^\\d{4}\\-\\d{1,2}\\-\\d{1,2}((\\s|T)\\d{1,2}\\:\\d{1,2}\\:\\d{1,2}(\\.\\d+Z)?)?$">>).
 -define(DATE_PATTERN, <<"^\\d{4}\\-\\d{1,2}\\-\\d{1,2}$">>).
