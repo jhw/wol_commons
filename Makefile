@@ -2,7 +2,7 @@ PROJECT = wol
 PROJECT_DESCRIPTION = New project
 PROJECT_VERSION = 0.1.0
 
-DEPS = jsx qdate yamerl
+DEPS = jsx qdate tinymq yamerl
 
 SHELL_OPTS = \
   -s ${PROJECT} \
