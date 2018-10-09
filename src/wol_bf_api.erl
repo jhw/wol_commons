@@ -1,6 +1,7 @@
 -module(wol_bf_api).
 
--export([rpc_post/2,
+-export([rpc_post/1,
+	 rpc_post/2,
 	 rpc_post/3]).
 
 -import(wol_json, [decode/1,
@@ -10,6 +11,9 @@
 -define(USER_AGENT, <<"Erlang/OTP 20">>).
 -define(APPLICATION_JSON, <<"application/json">>).
 -define(BF_DEFAULT_TIMEOUT, 5000). 
+
+rpc_post(ReqBody) ->
+    rpc_post(bfa_token_server:token(), ReqBody).
 
 rpc_post(undefined, _ReqBody) ->
     {error, <<"BF token not found">>};
