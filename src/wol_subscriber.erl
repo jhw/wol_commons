@@ -37,11 +37,11 @@ handle_cast(_Msg, State) ->
 %% tinymq wants lists not binaries
 
 handle_info({timeout, _, init}, #state{channel=Channel}=State) ->
-    tinymq:subscribe(binary_to_list(maps:get(<<"name">>, Channel)), now, self()),
+    tinymq:subscribe(binary_to_list(Channel), now, self()),
     {noreply, State};
 handle_info({_, Timestamp, Messages}, #state{channel=Channel}=State) when is_integer(Timestamp) and is_list(Messages) ->
     io:format("~s [~p]: ~p~n", [?MODULE, Timestamp, Messages]),
-    tinymq:subscribe(binary_to_list(maps:get(<<"name">>, Channel)), Timestamp, self()),
+    tinymq:subscribe(binary_to_list(Channel), Timestamp, self()),
     {noreply, State};
 handle_info(_Info, State) ->
     {noreply, State}.
